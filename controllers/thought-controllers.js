@@ -85,7 +85,7 @@ const thoughtController = {
             res.status(500).json(err);
         }
     },
-
+// DO NOT INCLUDE IN REACTION CONTROLLER 
     // Remove a friend from a Thought's friend list
     removeFriend: async (req, res) => {
         try {
