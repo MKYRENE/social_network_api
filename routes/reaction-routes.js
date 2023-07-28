@@ -1,16 +1,12 @@
 // TODO: Import reactionController and implement routes
 const router = require('express').Router();
-const { createReaction, removeReaction } = require('../controllers/reaction-controllers');
-
+const { addReactionToThought, removeReactionFromThought } = require('../controllers/reaction-controller');
 
 // Reaction routes
 router.route('/thoughts/:thoughtId/reactions')
-    // .post(createReaction);
+    .post(addReactionToThought);
 
 router.route('/thoughts/:thoughtId/reactions/:reactionId')
-    // .delete(removeReaction);
+    .delete(removeReactionFromThought);
 
 module.exports = router;
-
-
-

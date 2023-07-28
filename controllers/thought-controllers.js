@@ -1,9 +1,9 @@
-const  Thought  = require('../models/thought');
+const Thought = require('../models/thought');
 
 
 const thoughtController = {
-  // TODO: Implement thought controller methods
-  
+    // TODO: Implement thought controller methods
+
     getAllThoughts: async (req, res) => {
 
         try {
@@ -16,12 +16,12 @@ const thoughtController = {
 
     getThoughtById: async (req, res) => {
         try {
-            const { id } = rew.params;
-            const Thought = await Thought.findById(id).populate('thoguht friends');
-            if (!Thought) {
+            const { id } = req.params;
+            const thought = await Thought.findById(id).populate('thought friends');
+            if (!thought) {
                 return res.status(404).json({ message: 'Thought not found' });
             }
-            res.json(Thought);
+            res.json(thought);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -76,25 +76,29 @@ const thoughtController = {
     addFriend: async (req, res) => {
         try {
             const { ThoughtId, friendId } = req.params;
-            const Thought = await Thought.findByIdAndUpdate(ThoughtId, { $addToSet: { friends: friendId } }, { new: true });
-            if (!Thought) {
+            const thought = await Thought.findByIdAndUpdate(ThoughtId, { $addToSet: { friends: friendId } }, { new: true });
+            if (!thought) {
                 return res.status(404).json({ message: 'Thought not found' });
             }
-            res.json(Thought);
+            thought.friends.push(friendId);
+            await thought.save();
+            res.json(thought);
         } catch (err) {
             res.status(500).json(err);
         }
     },
-// DO NOT INCLUDE IN REACTION CONTROLLER 
+    // DO NOT INCLUDE IN REACTION CONTROLLER 
     // Remove a friend from a Thought's friend list
     removeFriend: async (req, res) => {
         try {
             const { ThoughtId, friendId } = req.params;
-            const Thought = await Thought.findByIdAndUpdate(ThoughtId, { $pull: { friends: friendId } }, { new: true });
-            if (!Thought) {
+            const thought = await Thought.findByIdAndUpdate(ThoughtId, { $pull: { friends: friendId } }, { new: true });
+            if (!thought) {
                 return res.status(404).json({ message: 'Thought not found' });
             }
-            res.json(Thought);
+            thought.friends.pull(friendId);
+            await thought.save();
+            res.json(thought);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -102,3 +106,4 @@ const thoughtController = {
 };
 
 module.exports = thoughtController;
+
