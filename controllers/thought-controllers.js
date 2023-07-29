@@ -2,8 +2,8 @@ const Thought = require('../models/thought');
 
 
 const thoughtController = {
-    // TODO: Implement thought controller methods
-
+    // TODO: IMPLEMENT THOUGHT CONTROLLER METHOD \\
+//==========================================================================================================================\\
     getAllThoughts: async (req, res) => {
 
         try {
@@ -13,7 +13,7 @@ const thoughtController = {
             res.status(500).json(err);
         }
     },
-
+//==========================================================================================================================\\
     getThoughtById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -26,8 +26,8 @@ const thoughtController = {
             res.status(500).json(err);
         }
     },
-
-    // Create a new Thought
+//==========================================================================================================================\\
+    // CREATE NEW THOUGHT \\
     createThought: async (req, res) => {
         try {
             console.log('Make a new Thought')
@@ -39,8 +39,8 @@ const thoughtController = {
             res.status(500).json(err);
         }
     },
-
-    // Update a Thought by ID
+//==========================================================================================================================\\
+    // UPDATE A THOUGHT BY ID \\
     updateThoughtById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -54,8 +54,8 @@ const thoughtController = {
             res.status(500).json(err);
         }
     },
-
-    // Delete a Thought by ID
+//==========================================================================================================================\\
+    // DELETE A THOUGHT BY ID \\
     deleteThoughtById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -63,7 +63,7 @@ const thoughtController = {
             if (!deletedThought) {
                 return res.status(404).json({ message: 'Thought not found' });
             }
-            // Bonus: Remove the Thought's associated thoughts
+            // Bonus: REMOVE THE THOUGHTS ASSOCIATE THOUGHTS \\
             await Thought.deleteMany({ Thoughtname: deletedThought.Thoughtname });
 
             res.json(deletedThought);
@@ -71,8 +71,8 @@ const thoughtController = {
             res.status(500).json(err);
         }
     },
-
-    // Add a friend to a Thought's friend list
+//==========================================================================================================================\\
+    // ADD A THOUGH TO A FRIENDS THOUGHT LIST  \\
     addFriend: async (req, res) => {
         try {
             const { ThoughtId, friendId } = req.params;
@@ -87,8 +87,9 @@ const thoughtController = {
             res.status(500).json(err);
         }
     },
-    // DO NOT INCLUDE IN REACTION CONTROLLER 
-    // Remove a friend from a Thought's friend list
+    //==========================================================================================================================\\
+    // DO NOT INCLUDE IN REACTION CONTROLLER \\
+    // REMOVE A FRIEND FROM A THOUGHT FRIEND LIST \\
     removeFriend: async (req, res) => {
         try {
             const { ThoughtId, friendId } = req.params;
@@ -104,6 +105,7 @@ const thoughtController = {
         }
     },
 };
-
+//==========================================================================================================================\\
+// EXPORTING \\
 module.exports = thoughtController;
 

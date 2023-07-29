@@ -7,6 +7,7 @@ const {
   deleteThoughtById,
 } = require('../controllers/thought-controllers');
 
+//==========================================================================================================================\\
 // Thought routes
 router.route('/thoughts')
     .get(getAllThoughts)

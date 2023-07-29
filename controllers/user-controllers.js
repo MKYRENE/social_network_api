@@ -2,16 +2,20 @@ const User = require('../models/user');
 
 const userController = {
     // TODO: Implement user controller methods
+//==========================================================================================================================\\
+    //GETTING ALL USERS \\
     getAllUsers: async (req, res) => {
 
         try {
+            console.log('It works!')
             const users = await User.find();
             res.json(users);
         } catch (err) {
             res.status(500).json(err);
         }
     },
-
+    //==========================================================================================================================\\
+    //GETTING USER BY ID \\
     getUserById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -24,11 +28,11 @@ const userController = {
             res.status(500).json(err);
         }
     },
-
-    // Create a new user
+//==========================================================================================================================\\
+    // CREATING NEW USER \\
     createUser: async (req, res) => {
         try {
-            console.log('Make a new user')
+            console.log('Created new user')
             const { username, email } = req.body;
             const newUser = await User.create({ username, email });
             res.json(newUser);
@@ -37,8 +41,8 @@ const userController = {
             res.status(500).json(err);
         }
     },
-
-    // Update a user by ID
+//==========================================================================================================================\\
+    // UPDATE USER BY ID \\
     updateUserById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -52,8 +56,8 @@ const userController = {
             res.status(500).json(err);
         }
     },
-
-    // Delete a user by ID
+//==========================================================================================================================\\
+    // DELETE USER BY ID \\
     deleteUserById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -61,16 +65,18 @@ const userController = {
             if (!deletedUser) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            // Bonus: Remove the user's associated thoughts
-            await Thought.deleteMany({ username: deletedUser.username });
+            // Bonus: REMOVE THE USER ASSOCIATES \\
+            if (deletedUser.thoughts.length) {
+                await Thought.deleteMany({ username: deletedUser.username });
+            }
 
             res.json(deletedUser);
         } catch (err) {
             res.status(500).json(err);
         }
     },
-
-    // Add a friend to a user's friend list
+//==========================================================================================================================\\
+    // ADD A FRIEND TO USER FRIEND LIST \\
     addFriend: async (req, res) => {
         try {
             const { userId, friendId } = req.params;
@@ -83,8 +89,8 @@ const userController = {
             res.status(500).json(err);
         }
     },
-
-    // Remove a friend from a user's friend list
+//==========================================================================================================================\\
+    // REMOVE A FRIEND FROM USER'S FRIEND LIST \\
     removeFriend: async (req, res) => {
         try {
             const { userId, friendId } = req.params;
@@ -99,5 +105,7 @@ const userController = {
     },
 };
 
+//==========================================================================================================================\\
+// EXPORTING \\
 
 module.exports = userController;

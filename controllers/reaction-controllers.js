@@ -2,17 +2,18 @@ const Thought = require('../models/thought');
 const Reaction = require('../models/reaction');
 
 const reactionController = {
-  // Add a reaction to a Thought
+  //==========================================================================================================================\\
+  // ADD A REACTION TO A THOUGHT \\
   addReactionToThought: async (req, res) => {
     try {
       const { thoughtId } = req.params;
       const { reactionText } = req.body;
-
-      // Create a new reaction object
+//==========================================================================================================================\\
+      // CREATE A NEW OBJECT \\
       const newReaction = new Reaction({ reactionText });
       await newReaction.save();
 
-      // Find the thought and associate the reaction with it
+      // FIND THE THOUGHT AND ASSOCIATE THE REACTION \\
       const thought = await Thought.findById(thoughtId);
       if (!thought) {
         await newReaction.remove();
@@ -27,22 +28,22 @@ const reactionController = {
       res.status(500).json(err);
     }
   },
-
-  // Remove a reaction from a Thought
+//==========================================================================================================================\\
+  // REMOVE A REACTION FOR A THOUGHT \\
   removeReactionFromThought: async (req, res) => {
     try {
       const { thoughtId, reactionId } = req.params;
 
-      // Find the thought and check if the reaction exists
+      // FIND THE THOUGHT AND CHECK IF THE REACTION EXIST \\
       const thought = await Thought.findById(thoughtId);
       if (!thought) {
         return res.status(404).json({ message: 'Thought not found' });
       }
 
-      // Find the index of the reaction in the thought's reactions array
+      // FIND THE INDEX OF THE REACTION \\
       const reactionIndex = thought.reactions.indexOf(reactionId);
 
-      // If the reaction is found, remove it from the array
+      // IF THE REACTION IS FOUND REMOVE IT FROM THE ARRAY \\
       if (reactionIndex !== -1) {
         thought.reactions.splice(reactionIndex, 1);
         await thought.save();
@@ -57,5 +58,10 @@ const reactionController = {
     }
   },
 };
+
+
+//==========================================================================================================================\\
+
+// EXPORTING \\
 
 module.exports = reactionController;
