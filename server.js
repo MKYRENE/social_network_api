@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 // Middleware \\
 app.use(express.json());
 app.use('/api/reaction', reaction)
-app.use('/api/thoughts', thought)
+app.use('/api/', thought)
 app.use('/api/users', user)
 
 
