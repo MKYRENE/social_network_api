@@ -3,17 +3,17 @@ const { removeFriend, getAllUsers, getUserById, createUser, deleteUserById, upda
 const router = require('express').Router();
 
 // TODO: Import userController and implement routes
-router.route('/')
+router.route('/users')
     .get(getAllUsers)
     .post(createUser);
 
 // UPDATING USER NEED ID AND PUT METHOD
-router.route('/:id')
+router.route('/users/:id')
     .get(getUserById)
     .put(updateUserById)
     .delete(deleteUserById);
 
-router.route('/:userId/friends/:friendId')
+router.route('/users/:userId/friends/:friendId')
     .post(addFriend)
     .delete(removeFriend);
 

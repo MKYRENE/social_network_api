@@ -1,5 +1,5 @@
 const Thought = require('../models/thought');
-
+const User = require('../models/user');
 
 const thoughtController = {
     // TODO: IMPLEMENT THOUGHT CONTROLLER METHOD \\
@@ -17,7 +17,7 @@ const thoughtController = {
     getThoughtById: async (req, res) => {
         try {
             const { id } = req.params;
-            const thought = await Thought.findById(id).populate('thought friends');
+            const thought = await Thought.findById(id).populate('reactions');
             if (!thought) {
                 return res.status(404).json({ message: 'Thought not found' });
             }
@@ -31,8 +31,8 @@ const thoughtController = {
     createThought: async (req, res) => {
         try {
             console.log('Make a new Thought')
-            const { Thoughtname, email } = req.body;
-            const newThought = await Thought.create({ Thoughtname, email });
+            const { thoughtText, username } = req.body;
+            const newThought = await Thought.create({ thoughtText, username });
             res.json(newThought);
         } catch (err) {
             console.log(err)

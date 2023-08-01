@@ -8,6 +8,7 @@ const db = require('./db/connection')
 // OPENING UP CONNECTION \\
 const app = express();
 
+app.use(express.json());
 
 // SETTING UP GET REQ \\
 app.get('/', (req, res) => {
@@ -15,11 +16,13 @@ app.get('/', (req, res) => {
 });
 
 
-// Middleware \\
-app.use(express.json());
-app.use('/api/reaction', reaction)
-app.use('/api/', thought)
-app.use('/api/users', user)
+// // Middleware \\
+// app.use('/api', reaction)
+// app.use('/api', thought)
+// app.use('/api', user)
+
+//Pass in array of routes
+app.use('/api',[reaction, thought, user]);
 
 
 const PORT = process.env.PORT || 3001;

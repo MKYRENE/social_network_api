@@ -5,18 +5,25 @@ const reactionController = {
   //==========================================================================================================================\\
   // ADD A REACTION TO A THOUGHT \\
   addReactionToThought: async (req, res) => {
+    console.log("triggered")
+
     try {
       const { thoughtId } = req.params;
-      const { reactionText } = req.body;
-//==========================================================================================================================\\
+      const { reactionBody, username } = req.body;
+      //==========================================================================================================================\\
       // CREATE A NEW OBJECT \\
-      const newReaction = new Reaction({ reactionText });
+      const newReaction = new Reaction({ username, reactionBody });
       await newReaction.save();
+
+      console.log(thoughtId, reactionBody)
 
       // FIND THE THOUGHT AND ASSOCIATE THE REACTION \\
       const thought = await Thought.findById(thoughtId);
+
+      console.log(thought)
+
       if (!thought) {
-        await newReaction.remove();
+        // await newReaction.remove();
         return res.status(404).json({ message: 'Thought not found' });
       }
 
@@ -25,10 +32,11 @@ const reactionController = {
 
       res.json(thought);
     } catch (err) {
+      console.log(err)
       res.status(500).json(err);
     }
   },
-//==========================================================================================================================\\
+  //==========================================================================================================================\\
   // REMOVE A REACTION FOR A THOUGHT \\
   removeReactionFromThought: async (req, res) => {
     try {
