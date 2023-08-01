@@ -7,7 +7,6 @@ This is a RESTful API for a social networking web application, built using Expre
 ## Table of Contents
 
 - [Installation](#installation)
-- [Demo Video][#Demo Video]
 - [Usage](#usage)
 - [Routes](#routes)
 - [Walkthrough Video](#walkthrough-video)
@@ -56,7 +55,7 @@ The API provides the following routes:
 
 ## Walkthrough Video
 
-[Add the link to your walkthrough video here]
+[https://drive.google.com/file/d/14yqXLohWx3AwZFVr8sjNmcJgapQ9gKBe/view]
 
 ## License
 
